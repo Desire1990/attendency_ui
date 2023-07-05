@@ -1,5 +1,11 @@
 <template>
-  <div class="conge"><br><br><br><br>
+  <div class="conge">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb" style="font-size: 24px;">
+                  <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Congé </li>
+                </ol>
+            </nav>
             <section class="content">
             <section class="container-fluid">
 
@@ -8,8 +14,12 @@
                     <div class="text-center table-description">
                       <h4 class="title-h3" style="color: #60a0b3 !important;
                 text-shadow: 1px 0px rgba(0,0,0,0.11)">TOUS LES CONGES</h4>
+<!--                     <div class="default" style="float: left; font-size:24px">
+                      <label for="jours">Solde en jours : </label>
+                      <input type="number" name="" :value='20' style="border:none; font-size: 24px; ">
+                    </div> -->
                     <label class="btns">
-                      <button  @click="add_mode=true">Ajouter</button>
+                      <button  @click="add_mode=true">Demander</button>
                     </label>
                     </div>
                   
@@ -17,11 +27,13 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">User</th>
                     <th scope="col">Debut</th>
                     <th scope="col">Fin</th>
                     <th scope="col">Type</th>
-                    <th scope="col">Solde</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Nbre Jours</th>
+                    <th scope="col"  style="background-color:aliceblue;">Solde</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
@@ -31,15 +43,19 @@
                   <tr v-for='item, count in items'>
 
                     <td>{{ count+1 }}</td>
-                    <td>{{ datetime(item.date_de_debut )}}</td>
-                    <td>{{ datetime(item.date_de_fin) }}</td>
+                    <td>{{ item.user }}</td>
+                    <td>{{ (item.date_de_debut )}}</td>
+                    <td>{{ (item.date_de_fin) }}</td>
                     <td>{{item.type_de_conge}}</td>
-                    <td>{{item.jours_par_defaut}}</td>
-                    <td>{{item.statut}}</td>
-                    <td>
-                      <button class="btn" @click="edit_mode=true" @click.prevent="startEdit(item)">edit</button>
-                      <button class="btn" style="background-color: red;" @click='Delete(item)'>delete</button>
+                    <td style="text-transform:capitalize;">{{item.statut}}</td>
+                    <td>{{(item.jours_par_defaut)}} jours</td>
+                    <th style="background-color:aliceblue;">{{(item.sold)}} jours</th>
+                    <td v-if='item.is_approved == false'>
+                      <button class="btn" v-if="$store.state.user.groups.includes('admin')" @click.prevent="Valider(item)">Valider</button>
+                      <button  class="btn" @click="edit_mode=true" @click.prevent="startEdit(item)">edit</button>
+                      <button  class="btn" style="background-color: red;" @click='Delete(item)'>delete</button>
                     </td>
+                    <td v-else></td>
                   </tr>
                 </tbody>
 
@@ -67,7 +83,7 @@ export default{
       csvData : {},
       items:this.$store.state.conges,
       active_item:{},
-      edit_mode:false, achat_mode:false, add_mode:false
+      edit_mode:false, achat_mode:false, add_mode:false, conge:{}
     }
   },
   watch:{
@@ -76,14 +92,24 @@ export default{
     }
   },
   methods:{
-    Delete(item) {
+    Valider(it){
       let headers = {
           headers: {
-          "Authorization": "Bearer " + this.$store.state.user.access
-          }
-        };
-        if (confirm('Effacer le conge ' + item.id)) {
-            axios.delete(this.$store.state.url+`/conge/${item.id}/`, headers)
+            "Authorization": "Bearer " + this.$store.state.user.access
+        }
+      }
+      axios.put(this.$store.state.url+`/conge/${it.id}/`, this.conge, headers)
+      .then((response) => {
+        this.conge = {};
+        this.$store.state.conges.push(response.data);
+        this.fetchData()
+      }).catch((error) => {
+        console.error(error);
+      })
+    },
+    Delete(com) {
+        if (confirm('Delete ' + com.id)) {
+            axios.delete(this.$store.state.url+`/conge/${com.id}/`, this.header)
                 .then( response =>                     
                 {
                     this.fetchData()
@@ -303,6 +329,10 @@ td{
   background-color: #4134e3 ;
   padding: 0px;
   float: right;
+}
+.conge{
+
+  padding: 24px;
 }
 /*table, th, td {
   border: 1px solid black;
