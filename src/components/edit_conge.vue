@@ -2,7 +2,7 @@
 	<div :class="{popup:true, active:visible}" @click="close">
 		<div class="popup-body" @click.prevent.stop>
 			<center>
-				<h3>Modifier {{service.nom}}</h3>
+				<h3>Modifier</h3>
 			</center>
 			<form method="post">
 				<div class="field">

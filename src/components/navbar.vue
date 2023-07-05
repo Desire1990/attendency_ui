@@ -73,7 +73,7 @@
           />
           <div class="name_job">
             <div class="name">
-              <h3 >{{ this.user.username }}</h3>
+              <h3 style="text-transform:capitalize;">{{ this.user.username }}</h3>
             </div>
           </div>
         </div>
@@ -137,7 +137,7 @@
             name: 'Employes',
             tooltip: 'User',
             icon: 'bx-user',
-            // user:'admin'
+            user:'admin'
           },
           {
             link: '/conge',
@@ -153,24 +153,28 @@
             name: 'Presence',
             tooltip: 'Messages',
             icon: 'bx-store-alt',
+            // user:'admin'
           },
           {
             link: '/agence',
             name: 'Agence',
             tooltip: 'Messages',
             icon: 'bx-store-alt',
+            user:'admin'
           },
           {
             link: '/Service',
             name: 'service',
             tooltip: 'Messages',
             icon: 'bx-store-alt',
+            user:'admin'
           },
           {
             link: '/quotation',
             name: 'Quotation',
             tooltip: 'Messages',
             icon: 'bx-store-alt',
+            user:'admin'
           },
         ],
       },
