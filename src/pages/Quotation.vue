@@ -1,165 +1,101 @@
 <template>
-          <section class="content">
-            <section class="container-fluid">
-              <section class="row">
-                  <section class="col col-lg-12">
-                    <a href="#" style="color:#c1c1c1;">back</a>
-                  </section>
-              </section>
-                    <!-- <div class="container"> -->
-                    <section class="row margin-bottom">
-                      <div class="container-fluid">
-                      <section class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="employee-box sec-box">
-                      <a href="">
-                      <span>Employees</span>
-                      </a>
-                      <span class="count-object">{{12 }}</span> 
-                    </div>
-                  </section>
-                  <section class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="leave-box sec-box">
-                      <a href="">
-                      <span>Agences</span>
-                      </a>
-                      <span class="count-object deprt">{{ 12}}</span>
-                    </div>
-                  </section>
-                  <section class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="birthday-box sec-box">
-                      <a href="">
-                      <span>Services</span>
-                      </a>
-                      <span class="count-object">{{ 10}}</span> 
-                    </div>
-                  </section>
-                  <!-- <section class="col col-lg-4">
-                    <div class="deleted-box sec-box">
-                      <a href="">
-                      <span>Deleted</span>
-                      </a>
-                    </div>
-                  </section> -->
-                  </div>
-                    </section><!-- /row -->
-
-                    <!-- </div> -->
-                    <!-- Search form -->
-          <div class="row" style="margin-bottom: 2.2rem;margin-top: 3rem;">
-           <div class="">
-            <div class="col-lg-12">
-
-              <form action="" method="GET">
-                <div class="input-group">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" id = "stylebutton" type="button">Search</button>
-                  </span>
-                  <input type="search" name="search" class="form-control" placeholder="Search by firstname,lastname...">
-                </div><!-- /input-group -->
-              </form>
-
-            </div><!-- /.col-lg-6 -->
-            </div>
-          </div><!-- /.row -->
-          <!-- /search form -->
-
-                  <!-- TABLE -->
-                  <div class="table-responsive table-shadow">
-                    <div class="text-center table-description">
-                      <h4 class="title-h3" style="color: #60a0b3 !important;
-                text-shadow: 1px 0px rgba(0,0,0,0.11)">TABLE DE TOUS LES EMPLOYEES </h4>
-                    </div>
-                    <div class="container-fluid">
-                      <div class="row">
-                        <div class="download-print-action">
-                            Download Excel | Pdf | Print <!-- Work on pdf and excel and print -->
-                            
-                        </div>
-                      </div>
-                    </div>
-                    <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Fullname</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Department</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- {% for employee in employee_list %} -->
-                  <tr v-for = 'employee in 10'>
-
-                    <!-- {% if employee.employeeid %} -->
-                    <th scope="row">{{ employee }}</th>
-                    <!-- {% else %} -->
-                    <!-- <th scope="row">-</th> -->
-                    <!-- {% endif %} -->
-
-                    <td>{{ employee }}</td>
-                    <td>{{ employee}}</td>
-                    <td>{{ employee }}</td>
-
-                    <!-- {% if employee.is_blocked %} -->
-                    <td>Inactive</td>
-                    <!-- {% else %} -->
-                    <!-- <td>active</td> -->
-                    <!-- {% endif %} -->
-
-                    <td> 
-                      <a href="#">
-                          view
-                      </a>
-                      
-                      <a href="#">
-                      edit
-                      </a>
-
-                    </td>
-                  </tr>
-                  <!-- {% endfor %} -->
-
-                </tbody>
-
-            </table>
-            <!-- Pagination -->
-                <div class="pagination">
-                  <span class="step-links">
-                      <!-- {% if employee_list.has_previous %} -->
-                          <a href="?page=1">&laquo; first</a>
-                          <!-- <a href="?page={{ employee_list.previous_page_number }}">previous</a> -->
-                      <!-- {% endif %} -->
-
-                      <span class="current">
-                          Page {{ 1}} of {{ 2 }}.
-                      </span>
-
-                      <!-- {% if employee_list.has_next %} -->
-                          <!-- <a href="?page={{ 1 }}">next</a> -->
-                          <!-- <a href="?page={{ 12 }}">last &raquo;</a> -->
-                      <!-- {% endif %} -->
-                  </span>
+  <div class="conge">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb" style="font-size: 24px;">
+                  <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Quotation </li>
+                </ol>
+            </nav>
+            <section>
+              <div class="conge">
+                <h3>What's next for quotation ???</h3>
               </div>
-            <!-- /pagination -->
-
-
-          </div>
-                  <!-- /TABLE -->
-
-            </section> <!-- /container --> 
-
-
-        </section>
+            </section>
+  </div>
 </template>
-<style>
+<script>
+import axios from 'axios';
+export default{
+  data(){
+    return {
+      csvData : {},
+      items:this.$store.state.services,
+      active_item:{},
+      edit_mode:false, achat_mode:false, add_mode:false
+    }
+  },
+  watch:{
+    "$store.state.services"(new_val){
+      this.items = new_val;
+    }
+  },
+  methods:{
+    Delete(item) {
+      let headers = {
+          headers: {
+          "Authorization": "Bearer " + this.$store.state.user.access
+          }
+        };
+        if (confirm('Effacer le service ' + item.nom)) {
+            axios.delete(this.$store.state.url+`/service/${item.id}/`, headers)
+                .then( response =>                     
+                {
+                    this.fetchData()
+                    return response
+                }
+            );
+        }
+    },
+    exitEdition(){
+      this.active_item = {};
+      this.add_mode = false;
+      this.edit_mode = false;
+    },
+    startEdit(item){
+      this.active_item = item;
+      this.edit_mode = true;
+    },
+    fetchData(){
+      let headers = {
+          headers: {
+            "Authorization": "Bearer " + this.$store.state.user.access
+          }
+        }
+      if(this.$store.state.users.length==0){
+        axios.get(this.$store.state.url+'/service/', headers)
+        .then((response) => {
+          this.$store.state.services = response.data.results;
+          this.items = response.data.results;
+          console.log(response.data.results)
+        }).catch((error) => {
+          if(error.response){
+          }else{
+            console.error(error)
+          }
+        });
+      }
+    },
+    total(){
+      let total = 0;
+      for(let item of this.items){
+        total += 1;
+      }
+      return total;
+    },
+  },
+  mounted(){
+    this.fetchData()
+  }
+};
+</script>
+
+<style scoped>
         .fa-eye,.fa-pencil{
           margin-right: 5px;
      }
 
      .table-shadow{
-      background: white;
+/*      background: white;*/
       padding: 2%;
       -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(  0,0,0,0.2);
       box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
@@ -198,6 +134,7 @@
   }
 
   .sec-box{
+   width:200px;
      height:80px;
      max-width:100%;
      line-height:80px;
@@ -279,7 +216,49 @@
   outline:#60a0b3;
 }
 
+.recycler{
+  display: flex;
+  flex-wrap: wrap;
+}
+tr th{
+  background-color: #f5f5f5;
+}
+tr:nth-child(even) {
+  background-color: #eee;
+}
+td{
+  padding-right: 10px;
+}
+.table button, .table .btn{
+  padding: 3px 1em;
+}
+.table tr:hover {
+  background-color: #ddd;
+}
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.table th, .table td {
+  border-bottom: 1px solid #aaa;
+  text-align: left;
+  height: 30px;
+}
 
-
-
+.btn{
+  display: inline-block;
+  background-color: #4134e3 ;
+  padding: 0px;
+  margin: 4px;
+  justify-content: center;
+}
+.btns{
+  display: inline-block;
+  background-color: #4134e3 ;
+  padding: 0px;
+  float: right;
+}
+.conge{
+  padding: 24px;
+}
 </style>
