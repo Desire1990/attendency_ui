@@ -1,5 +1,11 @@
 <template>
-  <div class="conge"><br><br><br><br>
+  <div class="conge">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb" style="font-size: 24px;">
+                  <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Service </li>
+                </ol>
+            </nav>
             <section class="content">
             <section class="container-fluid">
 
@@ -306,5 +312,8 @@ td{
   background-color: #4134e3 ;
   padding: 0px;
   float: right;
+}
+.conge{
+  padding: 24px;
 }
 </style>
