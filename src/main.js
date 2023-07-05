@@ -28,10 +28,10 @@ Vue.mixin({
     datetime(x) {
       if(!x) return "-"
       let date = new Date(x);
-    	return new Intl.DateTimeFormat(
-    		'en-GB',
-    		{ dateStyle: 'short', timeStyle: 'short' }
-    	).format(date)
+      return new Intl.DateTimeFormat(
+        'en-GB',
+        { dateStyle: 'short', timeStyle: 'short' }
+      ).format(date)
     },
     userIs(group){
       return this.user.groups.includes(group);
