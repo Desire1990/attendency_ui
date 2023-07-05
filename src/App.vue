@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import Login from "./pages/Login.vue"
 import NavBar from "./components/navbar.vue";
 export default{
@@ -32,9 +31,6 @@ export default{
     } else {
       console.warn("il y'a pas de session");
     }
-    if(this.$store.state.produits.length==0){
-      this.fetchProducts()
-    }
   },
   watch:{
     "$store.state.user":{
@@ -50,20 +46,6 @@ export default{
         this.$store.state.user = null;
       }
     },
-    fetchProducts(){
-      let headers = {
-        headers: {
-          "Authorization": "Bearer " + this.$store.state.user.access
-        }
-      }
-      axios.get(this.$store.state.url+'/produit/', headers)
-      .then((response) => {
-        this.$store.state.produits = response.data;
-        this.items = response.data;
-      }).catch((error) => {
-        console.error(error);
-      });
-    }
   }
 };
 </script>
@@ -75,6 +57,7 @@ export default{
   font-size: 20px;
   background: #944;
   color: #ccc;
+  border-radius: 5px;
   padding: 3px 10px;
   box-shadow: 0px 0px 5px 2px #777;
 }
