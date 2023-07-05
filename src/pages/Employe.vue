@@ -1,5 +1,11 @@
 <template>
           <section class="content">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb" style="font-size: 24px;">
+                  <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Employé </li>
+                </ol>
+            </nav>
             <section class="container-fluid">
               <section class="row">
                   <section class="col col-lg-12">
@@ -33,7 +39,7 @@
                       <span class="count-object">{{items1.length}}</span> 
                     </div>
                   </section>
-                  <!-- <section class="col col-lg-4">
+<!--                   <section class="col col-lg-4">
                     <div class="deleted-box sec-box">
                       <a href="">
                       <span>Deleted</span>
@@ -67,7 +73,7 @@
                   <div class="table-responsive table-shadow">
                     <div class="text-center table-description">
                       <h4 class="title-h3" style="color: #60a0b3 !important;
-                text-shadow: 1px 0px rgba(0,0,0,0.11)">TABLE DE TOUS LES EMPLOYEES </h4>
+                text-shadow: 1px 0px rgba(0,0,0,0.11)">TOUS LES EMPLOYEES </h4>
                     </div>
                     <div class="container-fluid">
                       <div class="row">
@@ -75,46 +81,33 @@
                             Download Excel | Pdf | Print <!-- Work on pdf and excel and print -->
                             
                         </div>
+                      <label class="btns">
+                        <button  @click="add_mode=true">Ajouter</button>
+                      </label>
                       </div>
                     </div>
                     <table class="table">
                 <thead>
                   <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
                     <th scope="col">Matricule</th>
                     <th scope="col">Nom Complet</th>
                     <th scope="col">Service</th>
                     <th scope="col">Agence</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">Date</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- {% for employee in items %} -->
-                  <tr v-for = 'employee in items'>
-
-                    <!-- {% if employee.employeeid %} -->
+                  <tr v-for = 'employee, index in items'>
+                    <th scope="row">{{index+1 }}</th>
+                    <th scope="row">{{ employee.user.username }}</th>
                     <th scope="row">{{ employee.matricule }}</th>
-                    <!-- {% else %} -->
-                    <!-- <th scope="row">-</th> -->
-                    <!-- {% endif %} -->
-
                     <td>{{ employee.user.first_name }} {{ employee.user.last_name }}</td>
                     <td>{{ employee.service.nom}}</td>
                     <td>{{ employee.agence.nom }}</td>
-
-                    <!-- {% if employee.is_blocked %} -->
-                    <td style="text-transform:capitalize;">{{employee.status}}</td>
-                    <!-- {% else %} -->
-                    <!-- <td>active</td> -->
-                    <!-- {% endif %} -->
-
-                    <td>                       
-                      <button class="btn" @click="edit_mode=true">Edit</button>
-
-                    </td>
+                    <td>{{datetime(employee.joined)}}</td>
                   </tr>
-                  <!-- {% endfor %} -->
-
                 </tbody>
 
             </table>
@@ -134,17 +127,16 @@
 
 
           </div>
-                  <!-- /TABLE -->
-
-            </section> <!-- /container --> 
-
-
-        </section>
+      </section> <!-- /container --> 
+    <DialogEmployee :visible='add_mode' @close='exitEdition'/>
+    </section>
 </template>
 
 <script>
+import DialogEmployee from "@/components/dialog_employee"
 import axios from 'axios';
 export default{
+  components:{DialogEmployee},
   data(){
     return {
       csvData : {},
@@ -166,6 +158,15 @@ export default{
     }
   },
   methods:{
+    exitEdition(){
+      this.active_item = {};
+      this.add_mode = false;
+      this.edit_mode = false;
+    },
+    startEdit(item){
+      this.active_item = item;
+      this.edit_mode = true;
+    },
     fetchData(){
       let headers = {
           headers: {
@@ -250,10 +251,6 @@ export default{
   }
 };
 </script>
-
-
-
-
 <style>
         .fa-eye,.fa-pencil{
           margin-right: 5px;
@@ -379,13 +376,21 @@ export default{
 .input-group-btn + input:focus{
   outline:#60a0b3;
 }
-
 .btn{
   display: inline-block;
-  background-color: #0088aa ;
-  padding: 4px;
+  background-color: #4134e3 ;
+  padding: 0px;
   margin: 4px;
   justify-content: center;
+}
+.btns{
+  display: inline-block;
+  background-color: #4134e3 ;
+  padding: 0px;
+  float: right;
+}
+.content{
+  padding: 24px;
 }
 
 
