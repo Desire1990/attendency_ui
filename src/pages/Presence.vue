@@ -1,285 +1,266 @@
 <template>
-          <section class="content">
-            <section class="container-fluid">
-              <section class="row">
-                  <section class="col col-lg-12">
-                    <a href="#" style="color:#c1c1c1;"></a><br><br><br>
-                  </section>
-              </section>
-                    <!-- <div class="container"> -->
-                    <section class="row margin-bottom">
-                      <div class="container-fluid">
-                      <section class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="employee-box sec-box">
-                      <a href="">
-                      <span>Employees</span>
-                      </a>
-                      <span class="count-object">{{12 }}</span> 
-                    </div>
-                  </section>
-                  <section class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="leave-box sec-box">
-                      <a href="">
-                      <span>Agences</span>
-                      </a>
-                      <span class="count-object deprt">{{ 12}}</span>
-                    </div>
-                  </section>
-                  <section class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="birthday-box sec-box">
-                      <a href="">
-                      <span>Services</span>
-                      </a>
-                      <span class="count-object">{{ 10}}</span> 
-                    </div>
-                  </section>
-                  <!-- <section class="col col-lg-4">
-                    <div class="deleted-box sec-box">
-                      <a href="">
-                      <span>Deleted</span>
-                      </a>
-                    </div>
-                  </section> -->
-                  </div>
-                    </section><!-- /row -->
-
-                    <!-- </div> -->
-                    <!-- Search form -->
-          <div class="row" style="margin-bottom: 2.2rem;margin-top: 3rem;">
-           <div class="">
-            <div class="col-lg-12">
-
-              <form action="" method="GET">
-                <div class="input-group">
-                  <span class="input-group-btn">
-                    <!-- <button class="btn btn-default" id = "stylebutton" type="button">Search</button> -->
-                  </span>
-                  <input type="search" name="search" class="form-control" placeholder="Search by firstname,lastname...">
-                </div><!-- /input-group -->
-              </form>
-
-            </div><!-- /.col-lg-6 -->
-            </div>
-          </div><!-- /.row -->
-          <!-- /search form -->
-
-                  <!-- TABLE -->
-                  <div class="table-responsive table-shadow">
-                    <div class="text-center table-description">
-                      <h4 class="title-h3" style="color: #60a0b3 !important;
-                text-shadow: 1px 0px rgba(0,0,0,0.11)">TABLE DE TOUS LES EMPLOYEES </h4>
-                    </div>
-                    <div class="container-fluid">
-                      <div class="row">
-                        <div class="download-print-action">
-                            Download Excel | Pdf | Print <!-- Work on pdf and excel and print -->
-                            
-                        </div>
+  <div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb" style="font-size: 24px;">
+              <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Présence </li>
+            </ol>
+        </nav>
+        <div class="col-lg-12 grid-margin">
+          <div class="card">
+          <div class="card-body">
+             <h4 class="text-center text-primary"><i class="fa  fa-check-square-o">&emsp; Présence des employés </i></h4><hr>
+                  <form class="form-group" method="post">
+                      <span class="mb-5">** All Fields are required</span><br>
+                          <div class="table-responsive">
+                              <table class="table table-striped">
+                                  <thead>
+                                      <tr>
+                                          <th>
+                                              Date
+                                          </th>
+                                          
+                                          <th>
+                                              Employé
+                                          </th><!-- 
+                                          <th>
+                                              First in
+                                          </th> -->
+                                          <th>
+                                              Status
+                                          </th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td class="py-3">
+                                            <input type="date hidden" :value = 'currentDate()'>
+                                          </td>                                          
+                                          <td>
+                                            {{this.user.username}}                                          
+                                          </td><!--                                           
+                                          <td>
+                                            <input type="time" v-model = "presence.first_in">
+                                          </td> -->
+                                          <td>
+                                            <div class="field">
+                                              <select type="text" name="cars_id" v-model = "presence.status" id="id_entrant">
+                                                  <option value="PRESENT">PRESENT</option>
+                                                  <option value="ABSENT">ABSENT</option>
+                                                  <option :value="UNAVAILABLE">UNAVAILABLE</option>
+                                              </select>       
+                                            </div>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>              
+                      <div class="text-center mt-3">
+                          <button @click.prevent='signIn' class="btn btn-rounded btn-outline-success">Sign in
+                          </button>
                       </div>
-                    </div>
-                    <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Fullname</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Department</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- {% for employee in employee_list %} -->
-                  <tr v-for = 'employee in 10'>
-
-                    <!-- {% if employee.employeeid %} -->
-                    <th scope="row">{{ employee }}</th>
-                    <!-- {% else %} -->
-                    <!-- <th scope="row">-</th> -->
-                    <!-- {% endif %} -->
-
-                    <td>{{ employee }}</td>
-                    <td>{{ employee}}</td>
-                    <td>{{ employee }}</td>
-
-                    <!-- {% if employee.is_blocked %} -->
-                    <td>Inactive</td>
-                    <!-- {% else %} -->
-                    <!-- <td>active</td> -->
-                    <!-- {% endif %} -->
-
-                    <td> 
-                      <a href="#">
-                          view
-                      </a>
-                      
-                      <a href="#">
-                      edit
-                      </a>
-
-                    </td>
-                  </tr>
-                  <!-- {% endfor %} -->
-
-                </tbody>
-
-            </table>
-            <!-- Pagination -->
-                <div class="pagination">
-                  <span class="step-links">
-                      <!-- {% if employee_list.has_previous %} -->
-                          <a href="?page=1">&laquo; first</a>
-                          <!-- <a href="?page={{ employee_list.previous_page_number }}">previous</a> -->
-                      <!-- {% endif %} -->
-
-                      <span class="current">
-                          Page {{ 1}} of {{ 2 }}.
-                      </span>
-
-                      <!-- {% if employee_list.has_next %} -->
-                          <!-- <a href="?page={{ 1 }}">next</a> -->
-                          <!-- <a href="?page={{ 12 }}">last &raquo;</a> -->
-                      <!-- {% endif %} -->
-                  </span>
-              </div>
-            <!-- /pagination -->
-
-
-          </div>
-                  <!-- /TABLE -->
-
-            </section> <!-- /container --> 
-
-
-        </section>
+        </form><br>
+        <h4 class="text-center text-primary"><i class="fa  fa-sign-in">&emsp; Signed In Staffer(s) </i> </h4><hr>
+    <small class='text-center'>Ceci est une liste des membres du personnel qui sont actuellement présents ou absents. </small>
+    <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Utilisateur</th>
+                                <th>
+                                    Date
+                                </th>
+                                <th>
+                                    Arrivé
+                                </th>
+                                <th>
+                                    Depart
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    Duration
+                                </th>
+                                <th>
+                                    Action(s)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr v-for = "ps, index in items">
+                                  <th>{{ps.user.username}}</th>
+                                    <td class="py-1">
+                                        {{(ps.date)}}
+                                    </td>
+                                    <td>
+                                    {{ps.first_in}}
+                                    </td>
+                                    <td>
+                                    
+                                        {{ps.last_out }}
+                                    </td>
+                                    <td>
+                                    
+                                        {{ps.status }}
+                                    </td>
+                                    <td>
+                                    {{ps.hours}}
+                                    </td>
+                                    <td v-if='ps.is_approved==false'>
+                                      <button style=" background-color: mediumvioletred; color: white;"@click.prevent="signOut(ps)" class="fa fa-sign-out">Sign-out</button>
+                                    </td>
+                                    <td v-else>-</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+      </div></div></div>
+      </div>
+    </div>
+  </div>
 </template>
-<style>
-        .fa-eye,.fa-pencil{
-          margin-right: 5px;
-     }
+<script>
+  import axios from "axios"
+  export default {
+    data(){
+      return {
+        logs:"", presence:{},
+        items:[],
+      }
+    },
+    computed:{
+      headers(){
+        return {
+          headers: {
+            "Authorization": "Bearer " + this.$store.state.user.access
+          }
+        }
+      }
+    },
+    methods: {
+    signIn(){
+      axios.post(this.$store.state.url+`/presence/`, this.presence, this.headers)
+      .then((response) => {
+        this.presence = {};
+        this.$store.state.presences.push(response.data);
+        this.fetchData()
+      }).catch((error) => {
+        console.error(error);
+      })
+    },
+    signOut(item){
+      axios.put(this.$store.state.url+`/presence/${item.id}/`, this.presence, this.headers)
+      .then((response) => {
+        this.presence = {};
+        this.$store.state.presences.push(response.data);
+        this.fetchData()
+      }).catch((error) => {
+        console.error(error);
+      })
+    },
+    fetchData(){
+        if(this.$store.state.users.length==0){
+          axios.get(this.$store.state.url+'/presence/', this.headers)
+          .then((response) => {
+            if (response.data.next) {
+                  this.showNextButton = true
+            }
 
-     .table-shadow{
-      background: white;
-      padding: 2%;
-      -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(  0,0,0,0.2);
-      box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+            if (response.data.previous) {
+                this.showPrevButton = true
+            }
+            this.$store.state.presences = response.data.results;
+            this.items = response.data.results;
+            console.log(response.data.results)
+          }).catch((error) => {
+            if(error.response){
+            }else{
+              console.error(error)
+            }
+          });
+        }
+      },
+      currentDate() {
+        const current = new Date();
+        const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+        return date;
+      }
+    },
+    mounted(){
+      this.fetchData();    }
   }
-  
-
-  h4{
-  margin:2px 0 5px 0 !important;
-  }
-
-
-  .download-print-action{
-    padding-bottom: 12px;
-  }
-
-
-    #override-start{
-      background:none !important;
-      top: 35% !important;
-      right:13px;
-      color:#000;
-      font-size: 24px;
-
-  }
-
-  .alert-warning{
-      background:#fd7b7b;
-  }
-
-  .alert-success {
-      background-color: #82b72a;
-  }
-
-  .alert-success,.alert-warning{
-      font-size:16px;
-  }
-
-  .sec-box{
-     height:80px;
-     max-width:100%;
-     line-height:80px;
-     text-align:center;
-     position:relative;
-     
-     font-size:1.9rem;
-
-    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
-    transition: all 400ms ease-in;
-
-    font-variant: petite-caps;
-}
-
-
-.sec-box a{
- color:#fff;
- text-decoration:none;
-  
-}
-
-
- .employee-box{
-  background:#3f9a26;
-}
-
-
- .leave-box{
-  background:#fff;
+</script>
+<style scoped>
+.hidden{
 
 }
-
-.leave-box a{
-  color:#3ea7c7 !important;
+.main-panel{
+    padding: 20px;
+}
+.btn.btn-rounded {
+    border-radius: 50px;
+    border: 1px solid;
+}
+.btn.btn-rounded:hover {
+  background-color:#00ce66;
+  color: white;
+}
+.btn-outline-success {
+    color: #00ce68;
+    background-color: transparent;
+    background-image: none;
+    border-color: #00ce68;
+    border-radius: 0.1875rem;
+}
+.btn {
+    display: inline-block;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.56rem 1.375rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.table td, .table th  {
+    vertical-align: middle;
+    font-size: 17px;
+    line-height: 1;
+    white-space: nowrap;
+}
+.table th, .table td {
+    padding: 18px 30px;
+    vertical-align: top;
+    border-top: 1px solid #f2f2f2;
+}
+input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: inherit;
+  border: none;
 }
 
-
- .birthday-box{
-  background:#8664ad;
+user agent stylesheet
+td {
+    display: table-cell;
+    vertical-align: inherit;
 }
-
-.deleted-box{
-  background:#d42828;
+table {
+    border-collapse: collapse;
 }
-
-.company-box{
-  background:#868686;
+user agent stylesheet
+table {
+    border-collapse: separate;
+    text-indent: initial;
+    border-spacing: 2px;
 }
-
-.margin-bottom{
-  margin-bottom:1.4rem;
-}
-
-.count-object {
-    position: absolute;
-    top: 31%;
-    right: 12px;
-    font-size: 25px;
-    font-weight: 100;
-    font-variant: petite-caps;
-    color: #f5f5f5;
-    text-shadow:1px 1px rgba(8, 8, 8, 0.23);
-}
-
-.deprt{
-  color:#4195bd !important;
-}
-
-
-#stylebutton{
-  background: #60a0b3 !important;
-    color: #fff !important;
-    font-variant: petite-caps !important;
-    font-size: 14px !important;
-}
-
-.input-group-btn + input:focus{
-  outline:#60a0b3;
-}
-
-
-
-
 </style>

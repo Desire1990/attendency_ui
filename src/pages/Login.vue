@@ -2,15 +2,15 @@
 	<div class="centered">
 		<form action="." method="post">
         <center>
-            <h2 style="text-transform: uppercase;">HRM Management</h2>
+            <h2 style="text-transform: uppercase;">Gestion des presences</h2>
         </center><br><br>
 		    <div class="field">
-				<label for="id_username"><strong>Username:</strong></label>
+				<label for="id_username"><strong>Nom d'utilisateur:</strong></label>
 				<input type="text" name="username" placeholder="Username " required
 					id="id_username" v-model="username" autocomplete="on">
 			</div>
 		    <div class="field">
-				<label for="id_password"><strong>Password:</strong></label>
+				<label for="id_password"><strong>Mot de passe:</strong></label>
 				<input type="password" name="password" placeholder="Password " required
 					id="id_password" v-model="password" autocomplete="on">
 			</div>
@@ -21,7 +21,7 @@
 	    		<button @click.prevent="logIn">Log In</button>
 			</div>
 			<center>
-				Developped by <b><a href="#">Raoul</a></b>
+				Developpée par <b><a href="#">Raoul</a></b>
 			</center>
 		</form>
 	</div>
