@@ -1,7 +1,14 @@
 <template>
-	<div>
+	<div class="dashboard">
+      <div class="row">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb" style="font-size: 24px;">
+              <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            </ol>
+        </nav>
+      </div>
         <section class="content">
-            <section class="container-fluid">
+          <section class="container-fluid">
             	<section class="row">
             		<section class="col col-lg-4">
             			<div class="employee-box sec-box">
@@ -22,7 +29,7 @@
             				<a href="">
             				<span>Presences</span>
             				</a>
-                            <span class="count-object"> {{presences.length}} </span>
+                            <span class="count-object"> {{presences.length}} jours </span>
             			</div>
             		</section>
                  </section>
@@ -112,8 +119,11 @@
 </script>
 
 <style scoped>
+  .dashboard{
+    padding: 24px;
+  }
     .content{
-        padding-top: 20%;
+        padding-top: 10%;
     }
    .sec-box{
      width:300px;
