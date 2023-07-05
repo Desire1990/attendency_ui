@@ -34,7 +34,7 @@ export default {
 		}
 	},
 	watch:{
-		service(new_value){
+		service(new_value){ 
 			this.new_service = JSON.parse(JSON.stringify(new_value));
 		}
 	},

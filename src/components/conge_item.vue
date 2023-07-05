@@ -13,7 +13,8 @@
 				<div class="field">
 					<label for="id_nom">Fin:</label>
 					<input type="date" v-model="conge.date_de_fin" id="id_nom" placeholder="le nom du conge">
-				</div>			  <div class="field">
+				</div>			  
+				<div class="field">
 			    <label>Selectionnez le type de conge</label><br>
 			    <select type="text" name="cars_id" v-model="conge.type_de_conge" id="id_entrant">
 			        <option>---- Selection d'une type ----</option>
